@@ -17,26 +17,46 @@
             margin-top: 20px;
         }
         .container {
-            margin: 50px auto;
+            margin: 20px auto;
             padding: 20px;
             background: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            width: 600px;
             border-radius: 10px;
         }
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
         label {
-            display: block;
-            margin-top: 15px;
             font-size: 1em;
-            text-align: left;
+            margin-right: 10px;
         }
         input[type="number"] {
-            width: 90%;
+            width: 150px;
             padding: 10px;
-            margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background-color: #fff3cd; /* Sarı renk */
             font-size: 1em;
+        }
+        .result-box {
+            width: 150px;
+            padding: 10px;
+            background-color: #6c757d; /* Koyu gri renk */
+            color: white;
+            border-radius: 5px;
+            text-align: right;
+        }
+        .light-result-box {
+            width: 150px;
+            padding: 10px;
+            background-color: #d6d8db; /* Açık gri renk */
+            color: black;
+            border-radius: 5px;
+            text-align: right;
         }
         button {
             margin-top: 20px;
@@ -51,42 +71,79 @@
         button:hover {
             background-color: #218838;
         }
-        #result {
-            margin-top: 20px;
-            font-size: 1.2em;
-            color: #28a745;
-        }
     </style>
 </head>
 <body>
     <h1>Ebay Satış Fiyatı Hesaplama</h1>
     <div class="container">
-        <label for="cost">Mal Maliyet Fiyatı:</label>
-        <input type="number" id="cost" placeholder="Maliyet giriniz">
+        <!-- 1. satır -->
+        <div class="row">
+            <label for="cost">Mal Maliyet Fiyatı:</label>
+            <input type="number" id="cost" placeholder="Maliyet giriniz">
+        </div>
+        
+        <!-- 2. satır -->
+        <div class="row">
+            <label for="price">Fiyat:</label>
+            <input type="number" id="price" placeholder="Fiyat giriniz">
+        </div>
+        
+        <!-- 3. satır -->
+        <div class="row">
+            <label for="shipping">Gönderim:</label>
+            <input type="number" id="shipping" placeholder="Gönderim ücreti giriniz">
+        </div>
 
-        <label for="price">Fiyat:</label>
-        <input type="number" id="price" placeholder="Fiyat giriniz">
+        <!-- 4. satır -->
+        <div class="row">
+            <label>Toplam:</label>
+            <div class="result-box" id="total">0</div>
+        </div>
 
-        <label for="shipping">Gönderim:</label>
-        <input type="number" id="shipping" placeholder="Gönderim ücreti giriniz">
+        <!-- 5. satır -->
+        <div class="row">
+            <label>Müşteri KDV %20:</label>
+            <div class="result-box" id="vat">0</div>
+        </div>
 
-        <button onclick="calculateProfit()">Hesapla</button>
-        <div id="result"></div>
+        <!-- 6. satır -->
+        <div class="row">
+            <label>Toplam Müşteri Maliyeti:</label>
+            <div class="result-box" id="totalCustomerCost">0</div>
+        </div>
+
+        <!-- 7. satır -->
+        <div class="row">
+            <label>İlk Maliyet %13.9:</label>
+            <div class="light-result-box" id="initialCost">0</div>
+        </div>
+
+        <!-- Hesapla butonu -->
+        <button onclick="calculate()">Hesapla</button>
     </div>
 
     <script>
-        function calculateProfit() {
-            const cost = parseFloat(document.getElementById('cost').value);
-            const price = parseFloat(document.getElementById('price').value);
-            const shipping = parseFloat(document.getElementById('shipping').value);
+        function calculate() {
+            // Kullanıcı girdilerini al
+            const cost = parseFloat(document.getElementById('cost').value) || 0;
+            const price = parseFloat(document.getElementById('price').value) || 0;
+            const shipping = parseFloat(document.getElementById('shipping').value) || 0;
 
-            if (isNaN(cost) || isNaN(price) || isNaN(shipping)) {
-                document.getElementById('result').textContent = 'Lütfen tüm alanları doldurunuz.';
-                return;
-            }
+            // 4. satır: Toplam
+            const total = price + shipping;
+            document.getElementById('total').textContent = total.toFixed(2) + ' TL';
 
-            const profit = price - cost - shipping;
-            document.getElementById('result').textContent = `Kar: ${profit.toFixed(2)} TL`;
+            // 5. satır: Müşteri KDV %20
+            const vat = total * 0.20;
+            document.getElementById('vat').textContent = vat.toFixed(2) + ' TL';
+
+            // 6. satır: Toplam Müşteri Maliyeti
+            const totalCustomerCost = total + vat;
+            document.getElementById('totalCustomerCost').textContent = totalCustomerCost.toFixed(2) + ' TL';
+
+            // 7. satır: İlk Maliyet %13.9
+            const initialCost = totalCustomerCost * 0.139;
+            document.getElementById('initialCost').textContent = initialCost.toFixed(2) + ' TL';
         }
     </script>
 </body>
