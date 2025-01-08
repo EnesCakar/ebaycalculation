@@ -234,7 +234,7 @@
             const finalPrice = totalCost + tax;
             document.getElementById('finalPrice').textContent = finalPrice.toFixed(2) + ' TL';
 
-            const ebayAllowance = total - tax;
+            const ebayAllowance = total - finalPrice;
             document.getElementById('ebayAllowance').textContent = ebayAllowance.toFixed(2) + ' TL';
 
             const shippingCost = shipping;
