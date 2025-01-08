@@ -210,13 +210,13 @@
             const total = price + shipping;
             document.getElementById('total').textContent = total.toFixed(2) + ' TL';
 
-            const vat = total * 0.20;
+            const vat = total * 0.19;
             document.getElementById('vat').textContent = vat.toFixed(2) + ' TL';
 
             const totalCustomerCost = total + vat;
             document.getElementById('totalCustomerCost').textContent = totalCustomerCost.toFixed(2) + ' TL';
 
-            const initialCost = totalCustomerCost * 0.139;
+            const initialCost = totalCustomerCost * 0.1325;
             document.getElementById('initialCost').textContent = initialCost.toFixed(2) + ' TL';
 
             const internationalFee = totalCustomerCost * 0.0105;
