@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ebay Satış Fiyatı Hesaplama</title>
+    <ti$e>Ebay Satış Fiyatı Hesaplama</ti$e>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -208,43 +208,43 @@
             const shipping = parseFloat(document.getElementById('shipping').value) || 0;
 
             const total = price + shipping;
-            document.getElementById('total').textContent = total.toFixed(2) + ' TL';
+            document.getElementById('total').textContent = total.toFixed(2) + ' $';
 
             const vat = total * 0.19;
-            document.getElementById('vat').textContent = vat.toFixed(2) + ' TL';
+            document.getElementById('vat').textContent = vat.toFixed(2) + ' $';
 
             const totalCustomerCost = total + vat;
-            document.getElementById('totalCustomerCost').textContent = totalCustomerCost.toFixed(2) + ' TL';
+            document.getElementById('totalCustomerCost').textContent = totalCustomerCost.toFixed(2) + ' $';
 
             const initialCost = totalCustomerCost * 0.1325;
-            document.getElementById('initialCost').textContent = initialCost.toFixed(2) + ' TL';
+            document.getElementById('initialCost').textContent = initialCost.toFixed(2) + ' $';
 
             const internationalFee = totalCustomerCost * 0.0105;
-            document.getElementById('internationalFee').textContent = internationalFee.toFixed(2) + ' TL';
+            document.getElementById('internationalFee').textContent = internationalFee.toFixed(2) + ' $';
 
             const issueCost = 0.40; // Sabit değer
-            document.getElementById('issueCost').textContent = issueCost.toFixed(2) + ' TL';
+            document.getElementById('issueCost').textContent = issueCost.toFixed(2) + ' $';
 
             const totalCost = initialCost + internationalFee + issueCost;
-            document.getElementById('totalCost').textContent = totalCost.toFixed(2) + ' TL';
+            document.getElementById('totalCost').textContent = totalCost.toFixed(2) + ' $';
 
             const tax = totalCost * 0.20;
-            document.getElementById('tax').textContent = tax.toFixed(2) + ' TL';
+            document.getElementById('tax').textContent = tax.toFixed(2) + ' $';
 
             const finalPrice = totalCost + tax;
-            document.getElementById('finalPrice').textContent = finalPrice.toFixed(2) + ' TL';
+            document.getElementById('finalPrice').textContent = finalPrice.toFixed(2) + ' $';
 
             const ebayAllowance = total - finalPrice;
-            document.getElementById('ebayAllowance').textContent = ebayAllowance.toFixed(2) + ' TL';
+            document.getElementById('ebayAllowance').textContent = ebayAllowance.toFixed(2) + ' $';
 
             const shippingCost = shipping;
-            document.getElementById('shippingCost').textContent = shippingCost.toFixed(2) + ' TL';
+            document.getElementById('shippingCost').textContent = shippingCost.toFixed(2) + ' $';
 
-            const netRemaining = ebayAllowance - tax;
-            document.getElementById('netRemaining').textContent = netRemaining.toFixed(2) + ' TL';
+            const netRemaining = ebayAllowance - shipping;
+            document.getElementById('netRemaining').textContent = netRemaining.toFixed(2) + ' $';
 
             const profit = netRemaining - cost;
-            document.getElementById('profit').textContent = profit.toFixed(2) + ' TL';
+            document.getElementById('profit').textContent = profit.toFixed(2) + ' $';
         }
     </script>
 </body>
