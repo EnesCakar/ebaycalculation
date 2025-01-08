@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ebay Satış Fiyatı Hesaplama</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            border-radius: 10px;
+        }
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 5px 0; /* Boşluğu daraltmak için ayarlandı */
+        }
+        label {
+            font-size: 1em;
+            margin-right: 5px; /* Yazı ve kutu arası boşluğu azaltmak için ayarlandı */
+            width: 200px; /* Etiketlerin sabit genişlikte olması için eklendi */
+            text-align: left; /* Etiketlerin sola hizalanması için */
+        }
+        input[type="number"] {
+            width: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff3cd; /* Sarı renk */
+            font-size: 1em;
+        }
+        .result-box {
+            width: 150px;
+            padding: 10px;
+            background-color: #6c757d; /* Koyu gri renk */
+            color: white;
+            border-radius: 5px;
+            text-align: right;
+        }
+        .light-result-box {
+            width: 150px;
+            padding: 10px;
+            background-color: #d6d8db; /* Açık gri renk */
+            color: black;
+            border-radius: 5px;
+            text-align: right;
+        }
+        .yellow-result-box {
+            width: 150px;
+            padding: 10px;
+            background-color: #fff3cd; /* Sarı kutucuk */
+            color: black;
+            border-radius: 5px;
+            text-align: right;
+        }
+        .white-result-box {
+            width: 150px;
+            padding: 10px;
+            background-color: white; /* Beyaz kutucuk */
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: right;
+        }
+        .green-result-box {
+            width: 150px;
+            padding: 10px;
+            background-color: #28a745; /* Yeşil kutucuk */
+            color: white;
+            border-radius: 5px;
+            text-align: right;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ebay Satış Fiyatı Hesaplama</h1>
+    <div class="container">
+        <!-- 1. satır -->
+        <div class="row">
+            <label for="cost">Mal Maliyet Fiyatı:</label>
+            <input type="number" id="cost" placeholder="Maliyet giriniz">
+        </div>
+        
+        <!-- 2. satır -->
+        <div class="row">
+            <label for="price">Fiyat:</label>
+            <input type="number" id="price" placeholder="Fiyat giriniz">
+        </div>
+        
+        <!-- 3. satır -->
+        <div class="row">
+            <label for="shipping">Gönderim:</label>
+            <input type="number" id="shipping" placeholder="Gönderim ücreti giriniz">
+        </div>
+
+        <!-- 4. satır -->
+        <div class="row">
+            <label>Toplam:</label>
+            <div class="result-box" id="total">0</div>
+        </div>
+
+        <!-- 5. satır -->
+        <div class="row">
+            <label>Müşteri KDV %20:</label>
+            <div class="result-box" id="vat">0</div>
+        </div>
+
+        <!-- 6. satır -->
+        <div class="row">
+            <label>Toplam Müşteri Maliyeti:</label>
+            <div class="result-box" id="totalCustomerCost">0</div>
+        </div>
+
+        <!-- 7. satır -->
+        <div class="row">
+            <label>İlk Maliyet %13.9:</label>
+            <div class="light-result-box" id="initialCost">0</div>
+        </div>
+
+        <!-- 8. satır -->
+        <div class="row">
+            <label>International Fee %1.05:</label>
+            <div class="light-result-box" id="internationalFee">0</div>
+        </div>
+
+        <!-- 9. satır -->
+        <div class="row">
+            <label>Issue Cost:</label>
+            <div class="light-result-box" id="issueCost">0.40</div>
+        </div>
+
+        <!-- 10. satır -->
+        <div class="row">
+            <label>Toplam Maliyet:</label>
+            <div class="light-result-box" id="totalCost">0</div>
+        </div>
+
+        <!-- 11. satır -->
+        <div class="row">
+            <label>KDV:</label>
+            <div class="light-result-box" id="tax">0</div>
+        </div>
+
+        <!-- 12. satır -->
+        <div class="row">
+            <label>Son Kesinti Fiyatı:</label>
+            <div class="white-result-box" id="finalPrice">0</div>
+        </div>
+
+        <!-- 13. satır -->
+        <div class="row">
+            <label>Ebay'in Ödeyeceği Ödenek:</label>
+            <div class="white-result-box" id="ebayAllowance">0</div>
+        </div>
+
+        <!-- 14. satır -->
+        <div class="row">
+            <label>Gönderim Maliyeti:</label>
+            <div class="yellow-result-box" id="shippingCost">0</div>
+        </div>
+
+        <!-- 15. satır -->
+        <div class="row">
+            <label>Net Kalan:</label>
+            <div class="white-result-box" id="netRemaining">0</div>
+        </div>
+
+        <!-- 16. satır -->
+        <div class="row">
+            <label>KAR:</label>
+            <div class="green-result-box" id="profit">0</div>
+        </div>
+
+        <!-- Hesapla butonu -->
+        <button onclick="calculate()">Hesapla</button>
+
+        <!-- Ayarlar butonu -->
+        <button onclick="window.location.href='settings.html'">Ayarlar</button>
+    </div>
+
+    <script>
+        let vatRate = 0.19; // Başlangıçta sabitlenen KDV oranı
+
+        function calculate() {
+            const cost = parseFloat(document.getElementById('cost').value) || 0;
+            const price = parseFloat(document.getElementById('price').value) || 0;
+            const shipping = parseFloat(document.getElementById('shipping').value) || 0;
+
+            const total = price + shipping;
+            document.getElementById('total').textContent = total.toFixed(2) + ' $';
+
+            const vat = total * vatRate;
+            document.getElementById('vat').textContent = vat.toFixed(2) + ' $';
+
+            const totalCustomerCost = total + vat;
+            document.getElementById('totalCustomerCost').textContent = totalCustomerCost.toFixed(2) + ' $';
+
+            const initialCost = totalCustomerCost * 0.1325;
+            document.getElementById('initialCost').textContent = initialCost.toFixed(2) + ' $';
+
+            const internationalFee = totalCustomerCost * 0.0105;
+            document.getElementById('internationalFee').textContent = internationalFee.toFixed(2) + ' $';
+
+            const issueCost = 0.40; // Sabit değer
+            document.getElementById('issueCost').textContent = issueCost.toFixed(2) + ' $';
+
+            const totalCost = initialCost + internationalFee + issueCost;
+            document.getElementById('totalCost').textContent = totalCost.toFixed(2) + ' $';
+
+            const tax = totalCost * vatRate;
+            document.getElementById('tax').textContent = tax.toFixed(2) + ' $';
+
+            const finalPrice = totalCost + tax;
+            document.getElementById('finalPrice').textContent = finalPrice.toFixed(2) + ' $';
+
+            const ebayAllowance = total - finalPrice;
+            document.getElementById('ebayAllowance').textContent = ebayAllowance.toFixed(2) + ' $';
+
+            const shippingCost = shipping;
+            document.getElementById('shippingCost').textContent = shippingCost.toFixed(2) + ' $';
+
+            const netRemaining = ebayAllowance - shipping;
+            document.getElementById('netRemaining').textContent = netRemaining.toFixed(2) + ' $';
+
+            const profit = netRemaining - cost;
+            document.getElementById('profit').textContent = profit.toFixed(2) + ' $';
+        }
+    </script>
+</body>
+</html>
